@@ -145,8 +145,3 @@ with open("./files/demo.txt", "a") as file:
         expiry = input("Enter Expiry Date (DD-MM-YYYY): ")
 
         file.write(f"{name},{purchase},{expiry}\n")
-
-        choice = input("Do you want to exit (y/n): ")
-
-        if choice == "y":
-            break
