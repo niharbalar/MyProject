@@ -192,4 +192,3 @@ with open("./Python/Test/demo.txt", "w") as file:
     file.writelines(newdata)
 
 print("\nExpired medicines removed successfully.")
-
