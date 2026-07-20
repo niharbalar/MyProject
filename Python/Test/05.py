@@ -153,7 +153,7 @@ with open("./Python/Test/demo.txt", "a") as file:
 
 today = date.today()
 
-with open("./Pyhton/Test/demo.txt", "r") as file:
+with open("./Python/Test/demo.txt", "r") as file:
     data = file.readlines()
 
     for x in data:
@@ -188,7 +188,8 @@ with open("./Python/Test/demo.txt", "r") as file:
             if exp >= today:
                 newdata.append(z)
 
-with open("./Python//Test/demo.txt", "w") as file:
+with open("./Python/Test/demo.txt", "w") as file:
     file.writelines(newdata)
 
 print("\nExpired medicines removed successfully.")
+
