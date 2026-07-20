@@ -136,12 +136,59 @@
 
 # PROGRAM 5:-
 
-from datetime import datetime, time, date, timedelta
+from datetime import datetime, date, timedelta
 
-with open("./files/demo.txt", "a") as file:
+with open("./Python/Test/demo.txt", "a") as file:
     while True:
         name = input("Enter Medicine Name: ")
         purchase = input("Enter Purchase Date (DD-MM-YYYY): ")
         expiry = input("Enter Expiry Date (DD-MM-YYYY): ")
 
         file.write(f"{name},{purchase},{expiry}\n")
+
+        choice = input("\nDo you want to exit? (y/n): ")
+
+        if choice == "y":
+            break
+
+today = date.today()
+
+with open("./Pyhton/Test/demo.txt", "r") as file:
+    data = file.readlines()
+
+    for x in data:
+        if x.strip() != "":
+            name, purchase, expiry = x.strip().split(",")
+            exp = datetime.strptime(expiry, "%d-%m-%Y").date()
+
+            if exp < today:
+                print(name, expiry)
+
+with open("./Python/Test/demo.txt", "r") as file:
+    data = file.readlines()
+
+    for y in data:
+        if y.strip() != "":
+            name, purchase, expiry = y.strip().split(",")
+            exp = datetime.strptime(expiry, "%d-%m-%Y").date()
+
+            if today <= exp <= today + timedelta(days=30):
+                print(name, expiry)
+
+newdata = []
+
+with open("./Python/Test/demo.txt", "r") as file:
+    data = file.readlines()
+
+    for z in data:
+        if z.strip() != "":
+            name, purchase, expiry = z.strip().split(",")
+            exp = datetime.strptime(expiry, "%d-%m-%Y").date()
+
+            if exp >= today:
+                newdata.append(z)
+
+with open("./Python//Test/demo.txt", "w") as file:
+    file.writelines(newdata)
+
+print("\nExpired medicines removed successfully.")
