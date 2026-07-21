@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 
-
 class Attendance(ABC):
     def __init__(self, i, n, t):
         self.id = i
@@ -83,36 +82,21 @@ class Intern_Employee(Attendance):
 
         print("Total Intern Attendance:", count)
 
-
 while True:
     id = int(input("Enter your ID: "))
     name = input("Enter your Name: ")
-    type = input("Enter your employment type (office, remote, intern): ").lower()
+    type = input(
+        "Enter your employment type (office, remote, intern): "
+    ).lower()
 
-    if type == "office":
-        employee = Office_Employee(id, name, type)
+    e = Attendance.create_employee(id, name, type)
 
-    elif type == "remote":
-        employee = Remote_Employee(id, name, type)
-
-    elif type == "intern":
-        employee = Intern_Employee(id, name, type)
-
-    else:
-        print("Invalid employee type")
-        continue
-
-    employee.addEmployee()
-    employee.do_attendance()
+    e.addEmployee()
+    e.do_attendance()
 
     choice = input("\nDo you want to exit? (y/n): ")
 
     if choice.lower() == "y":
         break
 
-
-print("\nAttendance Details")
-
-Office_Employee(0, "", "office").count_attd()
-Remote_Employee(0, "", "remote").count_attd()
-Intern_Employee(0, "", "intern").count_attd()
+Attendance.count_attendance()
