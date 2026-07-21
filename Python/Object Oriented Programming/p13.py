@@ -1,9 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
-
-
+# ------------------------------------------------------------------------------------------------------------
 class Attendance(ABC):
-
     def __init__(self, i, n, t):
         self.id = i
         self.name = n
@@ -20,13 +18,10 @@ class Attendance(ABC):
     @abstractmethod
     def count_attd(self):
         pass
-
-
+# ----------------------------------------------------------------------------------------------------------
 class Office_Employee(Attendance):
-
     def do_attendance(self):
         date = datetime.now().strftime("%d-%m-%Y")
-
         with open("./Python/Object Oriented Programming/officeAtt.txt", "a") as file:
             file.write(f"{self.id},{date}\n")
 
@@ -43,13 +38,10 @@ class Office_Employee(Attendance):
                     count += 1
 
         print("Total Office Attendance:", count)
-
-
+# ----------------------------------------------------------------------------------------------------------
 class Remote_Employee(Attendance):
-
     def do_attendance(self):
         date = datetime.now().strftime("%d-%m-%Y")
-
         with open("./Python/Object Oriented Programming/remoteAtt.txt", "a") as file:
             file.write(f"{self.id},{date}\n")
 
@@ -66,13 +58,10 @@ class Remote_Employee(Attendance):
                     count += 1
 
         print("Total Remote Attendance:", count)
-
-
+# ------------------------------------------------------------------------------------------------------------
 class Intern_Employee(Attendance):
-
     def do_attendance(self):
         date = datetime.now().strftime("%d-%m-%Y")
-
         with open("./Python/Object Oriented Programming/internAtt.txt", "a") as file:
             file.write(f"{self.id},{date}\n")
 
@@ -90,40 +79,28 @@ class Intern_Employee(Attendance):
 
         print("Total Intern Attendance:", count)
 
-
-employees = []
-
-
+emp = []
+# ------------------------------------------------------------------------------------------------------------
 while True:
-
     id = int(input("Enter your ID: "))
     name = input("Enter your Name: ")
-
-    type = input(
-        "Enter your employment type (office, remote, intern): "
-    ).lower()
+    type = input("Enter your employment type (office, remote, intern): ").lower()
 
     if type == "office":
         e = Office_Employee(id, name, type)
-
     elif type == "remote":
         e = Remote_Employee(id, name, type)
-
     elif type == "intern":
         e = Intern_Employee(id, name, type)
 
     e.addEmployee()
     e.do_attendance()
-
-    employees.append(e)
+    emp.append(e)
 
     choice = input("\nDo you want to exit? (y/n): ")
-
     if choice.lower() == "y":
         break
 
-
 print("\nAttendance Report\n")
-
-for e in employees:
+for e in emp:
     e.count_attd()

@@ -3,7 +3,4 @@ DEF,2,remote
 GHI,3,intern
 JKL,4,office
 MNO,5,remote
-PQR,6,intern
-STU,7,office
-VWX,8,remote
-YZ,9,intern
+6,6,intern
