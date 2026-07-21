@@ -35,24 +35,27 @@ class Office_Employee(Attendance):
             for x in file:
                 name, emp_id, emp_type = x.strip().split(",")
 
-                employees[int(emp_id)] = emp_type
+                employees[int(emp_id)] = {
+                    "name": name,
+                    "type": emp_type
+                }
 
-        with open("./Python/Object Oriented Programming/officeAtt.txt", "a+") as file:
-            file.seek(0)
-
-            for line in file:
-                emp_id, date = line.strip().split(",")
+        with open("./Python/Object Oriented Programming/officeAtt.txt", "r") as file:
+            for y in file:
+                emp_id, date = y.strip().split(",")
 
                 if date == today:
-                    if employees[int(emp_id)] == self.type:
-                        count += 1
+                    print(
+                        "ID:", emp_id,
+                        "Type:", employees[int(emp_id)]["type"],
+                        "Date:", date
+                    )
 
-            if self.type == "office":
-                file.write(f"{self.id},{today}\n")
-                count += 1
+                    count += 1
 
-        print(count)
-        
+        print("Total Employee Attendance:", count)
+
+
 while True:
     id = int(input("Enter your ID: "))
     name = input("Enter your Name: ")
@@ -60,11 +63,13 @@ while True:
 
     o = Office_Employee(id, name, type)
     o.addEmployee()
-    o.count_attd()
+
+    if type == "office":
+        o.do_attendance()
 
     choice = input("\nDo you want to exit? (y/n): ")
 
     if choice.lower() == "y":
         break
 
-    o.count_attd()
+o.count_attd()
