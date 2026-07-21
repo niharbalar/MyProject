@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 
+
 class Attendance(ABC):
+
     def __init__(self, i, n, t):
         self.id = i
         self.name = n
@@ -19,7 +21,9 @@ class Attendance(ABC):
     def count_attd(self):
         pass
 
+
 class Office_Employee(Attendance):
+
     def do_attendance(self):
         date = datetime.now().strftime("%d-%m-%Y")
 
@@ -40,7 +44,9 @@ class Office_Employee(Attendance):
 
         print("Total Office Attendance:", count)
 
+
 class Remote_Employee(Attendance):
+
     def do_attendance(self):
         date = datetime.now().strftime("%d-%m-%Y")
 
@@ -61,7 +67,9 @@ class Remote_Employee(Attendance):
 
         print("Total Remote Attendance:", count)
 
+
 class Intern_Employee(Attendance):
+
     def do_attendance(self):
         date = datetime.now().strftime("%d-%m-%Y")
 
@@ -82,21 +90,40 @@ class Intern_Employee(Attendance):
 
         print("Total Intern Attendance:", count)
 
+
+employees = []
+
+
 while True:
+
     id = int(input("Enter your ID: "))
     name = input("Enter your Name: ")
+
     type = input(
         "Enter your employment type (office, remote, intern): "
     ).lower()
 
-    e = Attendance.create_employee(id, name, type)
+    if type == "office":
+        e = Office_Employee(id, name, type)
+
+    elif type == "remote":
+        e = Remote_Employee(id, name, type)
+
+    elif type == "intern":
+        e = Intern_Employee(id, name, type)
 
     e.addEmployee()
     e.do_attendance()
+
+    employees.append(e)
 
     choice = input("\nDo you want to exit? (y/n): ")
 
     if choice.lower() == "y":
         break
 
-Attendance.count_attendance()
+
+print("\nAttendance Report\n")
+
+for e in employees:
+    e.count_attd()
