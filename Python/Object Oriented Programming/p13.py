@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
-# ------------------------------------------------------------------------------------------------------------
+
 class Attendance(ABC):
     def __init__(self, i, n, t):
         self.id = i
@@ -18,89 +18,125 @@ class Attendance(ABC):
     @abstractmethod
     def count_attd(self):
         pass
-# ----------------------------------------------------------------------------------------------------------
+
 class Office_Employee(Attendance):
     def do_attendance(self):
-        date = datetime.now().strftime("%d-%m-%Y")
+        ids = int(input("Enter ID: "))
+        date = input("Enter date (dd-mm-yyyy):")
+
         with open("./Python/Object Oriented Programming/officeAtt.txt", "a") as file:
-            file.write(f"{self.id},{date}\n")
+            file.write(f"{ids},{date}\n")
 
     def count_attd(self):
-        count = 0
-        today = datetime.now().strftime("%d-%m-%Y")
+        att_data = {}
 
         with open("./Python/Object Oriented Programming/officeAtt.txt", "r") as file:
-            for x in file:
+            data = file.readlines()
+
+            for x in data:
                 emp_id, date = x.strip().split(",")
 
-                if date == today:
-                    print("ID:", emp_id, "Type: office", "Date:", date)
-                    count += 1
+                if date not in att_data:
+                    att_data[date] = []
 
-        print("Total Office Attendance:", count)
-# ----------------------------------------------------------------------------------------------------------
+                att_data[date].append(emp_id)
+
+        for k, v in att_data.items():
+            print(f"{k} -> {len(v)}")
+
+
+
 class Remote_Employee(Attendance):
     def do_attendance(self):
-        date = datetime.now().strftime("%d-%m-%Y")
+        ids = int(input("Enter ID: "))
+        date = input("Enter date (dd-mm-yyyy):")
+
         with open("./Python/Object Oriented Programming/remoteAtt.txt", "a") as file:
-            file.write(f"{self.id},{date}\n")
+            file.write(f"{ids},{date}\n")
 
     def count_attd(self):
-        count = 0
-        today = datetime.now().strftime("%d-%m-%Y")
+        att_data = {}
 
         with open("./Python/Object Oriented Programming/remoteAtt.txt", "r") as file:
-            for y in file:
+            data = file.readlines()
+
+            for y in data:
                 emp_id, date = y.strip().split(",")
 
-                if date == today:
-                    print("ID:", emp_id, "Type: remote", "Date:", date)
-                    count += 1
+                if date not in att_data:
+                    att_data[date] = []
 
-        print("Total Remote Attendance:", count)
-# ------------------------------------------------------------------------------------------------------------
+                att_data[date].append(emp_id)
+
+        for k, v in att_data.items():
+            print(f"{k} -> {len(v)}")
+
 class Intern_Employee(Attendance):
     def do_attendance(self):
-        date = datetime.now().strftime("%d-%m-%Y")
+        ids = int(input("Enter ID: "))
+        date = input("Enter date (dd-mm-yyyy):")
+
         with open("./Python/Object Oriented Programming/internAtt.txt", "a") as file:
-            file.write(f"{self.id},{date}\n")
+            file.write(f"{ids},{date}\n")
 
     def count_attd(self):
-        count = 0
-        today = datetime.now().strftime("%d-%m-%Y")
+        att_data = {}
 
         with open("./Python/Object Oriented Programming/internAtt.txt", "r") as file:
-            for z in file:
+            data = file.readlines()
+
+            for z in data:
                 emp_id, date = z.strip().split(",")
 
-                if date == today:
-                    print("ID:", emp_id, "Type: intern", "Date:", date)
-                    count += 1
+                if date not in att_data:
+                    att_data[date] = []
 
-        print("Total Intern Attendance:", count)
+                att_data[date].append(emp_id)
 
-emp = []
-# ------------------------------------------------------------------------------------------------------------
+        for k, v in att_data.items():
+            print(f"{k} -> {len(v)}")
 while True:
     id = int(input("Enter your ID: "))
     name = input("Enter your Name: ")
-    type = input("Enter your employment type (office, remote, intern): ").lower()
+    emp_type = input("Enter your employment type (office, remote, intern): ").lower()
 
-    if type == "office":
-        e = Office_Employee(id, name, type)
-    elif type == "remote":
-        e = Remote_Employee(id, name, type)
-    elif type == "intern":
-        e = Intern_Employee(id, name, type)
+    if emp_type == "office":
+        e = Office_Employee(id, name, emp_type)
+    elif emp_type == "remote":
+        e = Remote_Employee(id, name, emp_type)
+    elif emp_type == "intern":
+        e = Intern_Employee(id, name, emp_type)
 
     e.addEmployee()
-    e.do_attendance()
-    emp.append(e)
 
+    choice = input("\nDo you want to add another employee? (y/n): ")
+    if choice.lower() == "n":
+        break
+
+while True:
+    emp_type = input("Enter your employment type (office, remote, intern): ").lower()
+
+    if emp_type == "office":
+        e = Office_Employee(id, "", emp_type)
+    elif emp_type == "remote":
+        e = Remote_Employee(id, "", emp_type)
+    elif emp_type == "intern":
+        e = Intern_Employee(id, "", emp_type)
+
+    e.do_attendance()
+    
     choice = input("\nDo you want to exit? (y/n): ")
     if choice.lower() == "y":
         break
 
-print("\nAttendance Report\n")
-for e in emp:
-    e.count_attd()
+print("\n Office Employee Attemdance")
+o = Office_Employee("", "", "")
+o.count_attd()
+
+print("\n Remote Employee Attemdance")
+r = Remote_Employee("", "", "")
+r.count_attd()
+
+print("\n Intern Employee Attemdance")
+i = Intern_Employee("", "", "")
+i.count_attd()
