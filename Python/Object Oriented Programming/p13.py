@@ -44,8 +44,6 @@ class Office_Employee(Attendance):
         for k, v in att_data.items():
             print(f"{k} -> {len(v)}")
 
-
-
 class Remote_Employee(Attendance):
     def do_attendance(self):
         ids = int(input("Enter ID: "))
@@ -95,6 +93,7 @@ class Intern_Employee(Attendance):
 
         for k, v in att_data.items():
             print(f"{k} -> {len(v)}")
+
 while True:
     id = int(input("Enter your ID: "))
     name = input("Enter your Name: ")
