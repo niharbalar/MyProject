@@ -5,11 +5,11 @@ class CurrencyConverter:
         self.usd = u
 
     def converter(self):
-        print(f"{self.usd} USD -> {self.usd * self.USDRate} INR")
+        print(f"{self.usd} USD -> {self.usd * CurrencyConverter.USDRate} INR")
 
     @classmethod
-    def exchangeRate(self, c):
-        return c
+    def exchangeRate(cls, c):
+        cls.USDRate = c
 
     @staticmethod
     def validateAmount(amt):
