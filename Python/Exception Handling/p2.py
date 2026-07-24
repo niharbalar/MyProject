@@ -6,4 +6,4 @@ except FileNotFoundError:
 else:
     print(data)
 finally:
-    print("Program Complted")
+    print("Program Completed")
