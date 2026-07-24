@@ -14,14 +14,14 @@ class MovieTicket:
         cls.discount = nd
 
     def display(self):
-        final = MovieTicket.calcDisc(
-            self.price,
-            MovieTicket.discount
-        )
-        print("Movie:", self.name)
-        print("Final Ticket Price:", final)
+        final = self.calcDisc(self.price, self.discount)
+        print(f"Movie: {self.name}")
+        print(f"Final Ticket Price: {final}")
 
-ticket = MovieTicket("Avengers", 200)
+name = input("Enter Movie Name: ")
+ticket = int(input("Enter Ticket Price: "))
+
+ticket = MovieTicket(name, ticket)
 ticket.display()
 MovieTicket.updateDisc(20)
 ticket.display()
