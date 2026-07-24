@@ -11,19 +11,22 @@ try:
     if pin != check:
         raise InvalidPINError("Incorrect PIN")
 
-    balance = 10000
-    amount = int(input("Enter withdrawal amount: "))
+    try:
+        balance = 10000
+        amount = int(input("Enter withdrawal amount: "))
 
-    if amount <= 0:
-        raise InvalidWithdrawalError("Withdrawal amount must be greater than zero")
-    if amount > balance:
-        raise InvalidWithdrawalError("Insufficient balance")
+        if amount <= 0:
+            raise InvalidWithdrawalError("Withdrawal amount must be greater than zero")
+        if amount > balance:
+            raise InvalidWithdrawalError("Insufficient balance")
+    except InvalidWithdrawalError as e:
+        print("Withdrawal Error:", e)
+    except ValueError:
+        print("Enter valid input")
 
 except InvalidPINError as e:
     print("PIN Error:", e)
-except InvalidWithdrawalError as e:
-    print("Withdrawal Error:", e)
 except ValueError:
-    print("Please enter a valid number")
+    print("Enter valid input")
 finally:
-    print("Withdrawal Completed")
+    print("Program Completed")
